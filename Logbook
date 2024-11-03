@@ -1,0 +1,20 @@
+from datetime import datetime
+
+class Logbook:
+    def __init__(self, file_name="logbook.txt"):
+        self.file_name = file_name
+
+    def log(self, entry):
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open(self.file_name, "a") as file:
+            file.write(f"[{timestamp}] {entry}\n")
+
+    def read_logs(self):
+        try:
+            with open(self.file_name, "r") as file:
+                return file.readlines()
+        except FileNotFoundError:
+            return ["No logs found."]
+
+    def clear_logs(self):
+        open(self.file_name, "w").close()
